@@ -22,7 +22,7 @@ def generate_customers(n, start_date, end_date):
     tenure_months = np.random.exponential(24, n).clip(6, 120)
     
     # Salary features 
-    monthly_salary = np.random.lognormal(9.5, 0.5, n).clip(5e6, 100e6)
+    monthly_salary = np.random.lognormal(16.4, 0.5, n).clip(5e6, 100e6)
     salary_regularity = np.random.beta(5, 2, n)
     salary_growth_3m = np.random.normal(0.02, 0.05, n)
     
@@ -139,10 +139,11 @@ if __name__ == "__main__":
     )
     
     # Assign treatment/control (70/30 split, stratified by salary band)
-    df_abtest['salary_band'] = pd.qcut(
-        df_abtest['monthly_salary'],
-        q=3, labels=['low', 'mid', 'high']
-    )
+    df_abtest['salary_band'] = pd.cut(
+    df_abtest['monthly_salary'],
+    bins=[0, 10e6, 20e6, float('inf')],
+    labels=['low', 'mid', 'high']
+)
     
     # Random assignment within each salary band
     np.random.seed(123)
