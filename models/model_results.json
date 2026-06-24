@@ -1,0 +1,7 @@
+{
+  "auc_train": 0.9341,
+  "auc_test": 0.9033,
+  "auc_oot": 0.9042,
+  "degradation_train_test": 0.0308,
+  "degradation_test_oot": -0.0009
+}
